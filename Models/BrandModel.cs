@@ -8,10 +8,10 @@ namespace JWL.Models
         [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Yeu cau nhap ten Thuong Hieu")]
+        [Required(ErrorMessage = "Hãy nhập tên Brand")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Yeu cau mo ta Thuong Hieu")]
+        [Required(ErrorMessage = "Hãy nhập mô tả của Brand")]
         public string Description { get; set; }
         public string Status { get; set; }
         public string Slug { get; set; }

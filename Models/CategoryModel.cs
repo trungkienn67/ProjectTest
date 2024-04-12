@@ -7,10 +7,10 @@ namespace JWL.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required(ErrorMessage = "Yeu cau nhap ten Thuong Hieu")]
+        [Required(ErrorMessage = "Hãy nhập tên Category")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Yeu cau nhap mo ta Thuong Hieu")]
+        [Required(ErrorMessage = "Hãy nhập mô tả của Category")]
         public string Description { get; set; }
         public string Slug { get; set; }
         public string Status { get; set; }

@@ -1,12 +1,14 @@
 ﻿using JWL.Models;
 using JWL.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace JWL.Areas.Admin.Controllers
 {
-    [Area("Admin")]   
-    public class BrandController : Controller
+    [Area("Admin")]
+	[Authorize]
+	public class BrandController : Controller
     {
         private readonly JWLContext _JWLContext;
         public BrandController(JWLContext context)
@@ -38,19 +40,19 @@ namespace JWL.Areas.Admin.Controllers
                 var slug = await _JWLContext.Categoryes.FirstOrDefaultAsync(p => p.Slug == brand.Slug);
                 if (slug != null)
                 {
-                    ModelState.AddModelError(".", "Thuong hieu da co trong database");
+                    ModelState.AddModelError(".", "Brand đã có trong database");
                     return View(brand);
 
                 }
                 _JWLContext.Add(brand);
                 await _JWLContext.SaveChangesAsync();
-                TempData["success"] = "Them Thuong hieu thanh cong";
+                TempData["success"] = "Thêm Brand thành công";
                 return RedirectToAction("Index");
 
             }
             else
             {
-                TempData["error"] = "Model co mot vai thu dang bi loi";
+                TempData["error"] = "Model đang có vài thứ bị lỗi";
                 List<string> errors = new List<string>();
                 foreach (var value in ModelState.Values)
                 {
@@ -77,19 +79,19 @@ namespace JWL.Areas.Admin.Controllers
                 var slug = await _JWLContext.Categoryes.FirstOrDefaultAsync(p => p.Slug == brand.Slug);
                 if (slug != null)
                 {
-                    ModelState.AddModelError(".", "Thuong hieu da co trong database");
+                    ModelState.AddModelError(".", "Brand đã có trong database");
                     return View(brand);
 
                 }
                 _JWLContext.Update(brand);
                 await _JWLContext.SaveChangesAsync();
-                TempData["success"] = "Cap nhat Thuong hieu thanh cong";
+                TempData["success"] = "Update Brand thành công";
                 return RedirectToAction("Index");
 
             }
             else
             {
-                TempData["error"] = "Model co mot vai thu dang bi loi";
+                TempData["error"] = "Model đang có vài thứ bị lỗi";
                 List<string> errors = new List<string>();
                 foreach (var value in ModelState.Values)
                 {
@@ -109,7 +111,7 @@ namespace JWL.Areas.Admin.Controllers
             BrandModel brand = await _JWLContext.Brands.FindAsync(Id);
             _JWLContext.Brands.Remove(brand);
             await _JWLContext.SaveChangesAsync();
-            TempData["success"] = "Da xoa thuong hieu";
+            TempData["success"] = "Delete Brand successfully";
             return RedirectToAction("Index");
 
         }

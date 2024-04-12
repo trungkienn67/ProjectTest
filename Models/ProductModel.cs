@@ -9,22 +9,22 @@ namespace JWL.Models
 		[Key]
 		public int Id { get; set; }
 
-		[Required(ErrorMessage = "Yeu cau nhap ten San Pham")]
+		[Required(ErrorMessage = "Hãy nhập tên Sản Phẩm")]
 
         public string Name { get; set; }
         
         public string Slug { get; set; }
 
-		[Required, MinLength(4, ErrorMessage = "Yeu cau nhap mo ta San Pham")]
+		[Required, MinLength(4, ErrorMessage = "Hãy nhập mô tả Sản Phẩm")]
 		public string Description { get; set; }
 
-		[Required(ErrorMessage = "Yeu cau nhap gia San Pham")]
+		[Required(ErrorMessage = "Hãy nhập giá của Sản Phẩm")]
 		[Range(0.01, double.MaxValue)]
 		[Column(TypeName = "decimal(8, 2)")]
 		public decimal Price { get; set; }
-		[Required, Range(1, int.MaxValue, ErrorMessage = "Chon mot thuong hieu")]
+		[Required, Range(1, int.MaxValue, ErrorMessage = "Chọn một Brand")]
 		public int BrandID { get; set; }
-        [Required, Range(1, int.MaxValue, ErrorMessage = "Chon mot danh muc")]
+        [Required, Range(1, int.MaxValue, ErrorMessage = "Chọn một Category")]
         public int CategoryID { get; set; }
 
         public BrandModel Brand { get; set; }

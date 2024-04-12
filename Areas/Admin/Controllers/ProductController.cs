@@ -1,5 +1,6 @@
 ﻿using JWL.Models;
 using JWL.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace JWL.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class ProductController : Controller
     {
 
@@ -49,7 +51,7 @@ namespace JWL.Areas.Admin.Controllers
                 var slug = await _JWLContext.Products.FirstOrDefaultAsync(p => p.Slug == product.Slug);
                 if (slug != null)
                 {
-                    ModelState.AddModelError(".", "San pham da co trong database");
+                    ModelState.AddModelError(".", "Sản phẩm đã có trong database");
                     return View(product);
 
                 }
@@ -68,13 +70,13 @@ namespace JWL.Areas.Admin.Controllers
 
                 _JWLContext.Add(product);
                 await _JWLContext.SaveChangesAsync();
-                TempData["success"] = "Them san pham thanh cong";
+                TempData["success"] = "Thêm sản phẩm thành công";
                 return RedirectToAction("Index");
 
             }
             else
             {
-                TempData["error"] = "Model co mot vai thu dang bi loi";
+                TempData["error"] = "Model đang có vài thứ bị lỗi";
                 List<string> errors = new List<string>();
                 foreach (var value in ModelState.Values)
                 {
@@ -112,7 +114,7 @@ namespace JWL.Areas.Admin.Controllers
                 var slug = await _JWLContext.Products.FirstOrDefaultAsync(p => p.Slug == product.Slug);
                 if (slug != null)
                 {
-                    ModelState.AddModelError(".", "San pham da co trong database");
+                    ModelState.AddModelError(".", "Sản phẩm đã có trong database");
                     return View(product);
 
                 }
@@ -131,13 +133,13 @@ namespace JWL.Areas.Admin.Controllers
 
                 _JWLContext.Update(product);
                 await _JWLContext.SaveChangesAsync();
-                TempData["success"] = "Cap nhat san pham thanh cong";
+                TempData["success"] = "Cập nhật sản phẩm thành công";
                 return RedirectToAction("Index");
 
             }
             else
             {
-                TempData["error"] = "Model co mot vai thu dang bi loi";
+                TempData["error"] = "Model đang có vài thứ bị lỗi";
                 List<string> errors = new List<string>();
                 foreach (var value in ModelState.Values)
                 {
@@ -167,7 +169,7 @@ namespace JWL.Areas.Admin.Controllers
             }
             _JWLContext.Products.Remove(product);
             await _JWLContext.SaveChangesAsync();
-            TempData["error"] = "Da xoa san pham";
+            TempData["error"] = "Delete sản phẩm successfully";
             return RedirectToAction("Index");
 
         }
